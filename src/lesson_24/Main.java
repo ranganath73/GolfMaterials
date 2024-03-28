@@ -1,5 +1,7 @@
 package lesson_24;
 
+import lesson_19.FuelType;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +19,62 @@ public class Main {
         endlessLoop:
         while (true) {
             printMenu();
-            int choice = scanner.nextInt();
+            int choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case 0 -> {
                     break endlessLoop;
                 }
-                case 1 -> System.out.println(carRepository.getCars());
+                case 1 -> printCars(carRepository.getCars());
+                case 2 -> printCars(carRepository.getAvailableCars());
+                case 3 -> printCars(carRepository.getRentedCars());
+                case 4 -> {
+                    System.out.println("Select one of the available cars:");
+                    printCars(carRepository.getAvailableCars());
+
+                    // 1. Audi
+                    // 2. BMW
+                    // 3. Toyota -> rented
+                    int carChoice = Integer.parseInt(scanner.nextLine());
+                    carRepository.getAvailableCars().get(carChoice - 1).setRented(true);
+                }
+                case 5 -> {
+                    System.out.println("Which car are you returning:");
+                    printCars(carRepository.getRentedCars());
+
+                    int carChoice = Integer.parseInt(scanner.nextLine());
+                    carRepository.getRentedCars().get(carChoice - 1).setRented(false);
+                }
+                case 6 -> {
+                    Car car = createCarFromUserInput(scanner);
+                    carRepository.add(car);
+                }
             }
         }
 
         saveCarsToFile(carRepository.getCars(), FILENAME);
+    }
+
+    private static Car createCarFromUserInput(Scanner scanner) {
+        System.out.println("Enter maker:");
+        String maker = scanner.nextLine();
+        System.out.println("Enter model:");
+        String model = scanner.nextLine();
+        System.out.println("Enter year:");
+        int year = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter is manual:");
+        boolean isManual = Boolean.parseBoolean(scanner.nextLine());
+        System.out.println("Enter fuel type:");
+        FuelType fuelType = FuelType.valueOf(scanner.nextLine());
+        System.out.println("Enter daily price:");
+        double price = Double.parseDouble(scanner.nextLine());
+        return new Car(maker, model, year, isManual, fuelType, price, false);
+    }
+
+    private static void printCars(List<Car> cars) {
+        for (int i = 0; i < cars.size(); i++) {
+            System.out.println(String.format("%d. %s", i + 1, cars.get(i)));
+        }
     }
 
     private static List<Car> readCarsFromFile(String filename) {

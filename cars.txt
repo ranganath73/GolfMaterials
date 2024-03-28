@@ -1,5 +1,6 @@
-BMW-320d-2019-true-DIESEL-50.2-false
-Audi-A5-2012-true-HYBRID-100.0-false
+BMW-320d-2019-true-DIESEL-50.2-true
+Audi-A5-2012-true-HYBRID-100.0-true
 Ford-Mustang-2020-false-DIESEL-19.5-false
-Toyota-Corolla-2024-true-DIESEL-44.0-false
+Toyota-Corolla-2024-true-DIESEL-44.0-true
 Nissan-Micra-2000-false-GASOLINE-14.0-false
+Audi-A3-2024-true-DIESEL-55.9-true
